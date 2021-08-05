@@ -1,0 +1,44 @@
+main,
+section {
+  margin: 3rem auto;
+  max-width: 90vw;
+  width: 50ch;
+}
+
+section,
+aside {
+  display: none;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+p {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+#rules-number {
+  font-size: 2rem;
+}
+
+.btn.btn-info {
+  background-color: #e64c66;
+  color: #ffffff;
+}
+
+.btn.btn-info:hover {
+  background-color: #f3e033;
+}
+
+.btn.btn-info:active {
+  background-color: #6fd47c;
+}
+
+.btn.btn-correct:active {
+  background-color: #6fd47c;
+}
+.btn.btn-incorrect:active {
+  background-color: #e64c66;
+}

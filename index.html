@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>jQuery Click Events</title>
+
+    <link rel="stylesheet" type="text/css" href="./assets/css/jass.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+  </head>
+
+  <body class="bg-dark text-light">
+    <main>
+      <h1>Random Questions</h1>
+
+      <hr />
+      <p>Take the quiz?</p>
+      <button id="start-btn" class="btn btn-info">BEGIN!</button>
+      <hr />
+
+      <p>Are you the #1?</p>
+      <button id="score-btn" class="btn btn-info">
+        I'm the #1! I'm sure of it!
+      </button>
+      <aside id="left">
+        <h3>Scorboard here</h3>
+      </aside>
+      <hr />
+
+      <p>Need the rules first?</p>
+      <button id="rules-btn" class="btn btn-primary">
+        Tell me what to do!
+      </button>
+      <aside id="right">
+        <h3>Rules Here</h3>
+        <span id="rules-number"></span>
+      </aside>
+      <hr />
+
+      <p>Click to refresh page</p>
+      <button id="refresh-btn" class="btn btn-warning">Refresh Page</button>
+    </main>
+
+    <section class = "quiz">
+      <h2 id = "questNo">Timer & score goes here</h2>
+      <div class = "timer"></div>
+      <div class ="time_text">Time Left</div>
+      <div class = "timer_sec">15</div>
+      <p id="question">Question 1</p>
+      <div id="answer-btns" class="btn-grid">
+        <input calss="btn" type="radio">Answer 1</input>
+        <input calss="btn" type="radio">Answer 2</input>
+        <input calss="btn" type="radio">Answer 3</input>
+        <input calss="btn" type="radio">Answer 4</input>
+      </div>
+    </section>
+    <!-- Added link to the jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script type="text/javascript" src="./assets/js/script.js"></script>
+  </body>
+</html>
