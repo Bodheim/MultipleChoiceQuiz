@@ -41,18 +41,25 @@
     </main>
 
     <section class="container hide" id="container">
-      <h2 id="questNo">Timer & score goes here</h2>
+      <h2>Timer & score goes here</h2>
       <div class="timer"></div>
       <div class="time_text">Time Left</div>
       <div class="timer_sec">15</div>
       <div id="question-container" class="hide">
-        <div id="question">Question</div>
-        <div id="answer-btns" class="btn-grid">
-          <button calss="btn" type="radio">Answer 1</button>
-          <button calss="btn" type="radio">Answer 2</button>
-          <button calss="btn" type="radio">Answer 3</button>
-          <button calss="btn" type="radio">Answer 4</button>
+        <h2 id="question">Question</h2>
+        <div class="choice-container">
+          <p class="choices" data-number="1">Answer 1</p>
         </div>
+        <div class="choice-container">
+          <p class="choices" data-number="2">Answer 2</p>
+        </div>
+        <div class="choice-container">
+          <p class="choices" data-number="3">Answer 3</p>
+        </div>
+        <div class="choice-container">
+          <p class="choices" data-number="4">Answer 4</p>
+        </div>
+
         <button id="next-btn" class="btn btn-info hide">Next!</button>
         <button id="End-btn" class="btn btn-info hide">End!</button>
       </div>

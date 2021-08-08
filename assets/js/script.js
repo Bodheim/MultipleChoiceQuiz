@@ -3,125 +3,110 @@ var scoreButtonEl = $('#score-btn');
 var rulesButtonEl = $('#rules-btn');
 var rulesNumberEl = $('#rules-number');
 var refreshButtonEl = $('#refresh-btn');
-//var questionsEl = = $("#question")
+const section = document.getElementById('container');
 
 var isDark = true; // light theme state
 
-const section = document.getElementById('container');
-const nextButton = document.getElementById('next-btn');
-const endButton = document.getElementById('next-btn');
-const questionElement = document.getElementById('question');
+const question = document.getElementById('question');
 const questionCont = document.getElementById('question-container');
-const answerbtnsElement = document.getElementById('answer-btns');
-let shuffled, currentQuestion;
-const rules = document.getElementById('right');
 
-// Click event causes quiz to start
-// Vanilla JS equivalent: `addEventListener`
+//makes an array for a space for each answer space
+const choices = Array.from(document.getElementsByClassName('choices'));
+
+let currentQuestion = {};
+let acceptingAnwers = false; //set initially to fals so user can't answer before load
+let score = 0;
+let questionCounter = 0;
+let availableQuestions = [];
+
+//sets a key for questions and answers and which are correct/incorrect
+let questions = [
+  {
+    question: 'Hal open the pod bay door.',
+    choice1: 'Im sorry Dave',
+    choice2: 'Im afraid',
+    choice3: 'I cant do that.',
+    choice4: 'All of the above',
+    answer: 4,
+  },
+  {
+    question: 'What is true of Sea Urchins?',
+    choice1: 'They wear things on their heads.',
+    choice2: 'They are afraid of things on their heads',
+    choice3: 'They wear things on their tiny bums.',
+    choice4: 'All of the above',
+    answer: 1,
+  },
+  {
+    question: 'How do you know shes a witch?',
+    choice1: 'If she weighs the same as a duck.',
+    choice2: 'She looks like one!',
+    choice3: 'She turned me into a newt.',
+    choice4: 'You are dressed like one.',
+    answer: 1,
+  },
+];
+
+const correctBonus = 10;
+const maxQuestions = questions.length;
+//.length pulls length property of questions array
+
+//Makes it so hitting "Begin!" on first page moves to the quiz page
 startButtonEl.on('click', function () {
   alert('No Take Backsies!');
   $('main').hide();
   section.classList.remove('hide');
   questionCont.classList.remove('hide');
-
-  //makes questions random
-  shuffled = question.sort(() => Math.random() - 0.5);
-  currentQuestion = 0;
-
-  //calls function next question to show the next question
-  setNextQuestion();
+  startQuiz();
 });
 
-function setNextQuestion() {
-  //resets state and helps clear out "Answer" with the
-  //actual answers for the quiz
-  resetState();
-
-  //populates questions into the question area
-  showQuestion(shuffled[currentQuestion]);
+function startQuiz() {
+  questionCounter = 0;
+  score = 0; //sets your start score to 0 points
+  availableQuestions = [...questions]; //sets full coppy of all questions
+  getNewQuestion();
 }
 
-function showQuestion(question) {
-  questionElement.innerText = question.question;
-  question.answers.forEach((answer) => {
-    const button = document.createElement('button');
-    button.innerText = answer.text;
-    button.classList.add('btn');
-    if (answer.correct) {
-      button.dataset.correct = answer.correct;
-    }
-    button.addEventListener('click', selectAnswer);
-    answerbtnsElement.appendChild(button);
-  });
-}
+function getNewQuestion() {
+  questionCounter++;
 
-function resetState() {
-  nextButton.classList.add('hide');
-  while (answerbtnsElement.firstChild) {
-    answerbtnsElement.removeChild(answerbtnsElement.firstChild);
-  }
-}
+  //makes a random number that wiill be used to pull the next question
+  const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+  currentQuestion = availableQuestions[questionIndex];
 
-function selectAnswer(e) {
-  const selectedButton = e.target;
-  const correct = selectedButton.dataset.correct;
+  //.questions pulls the question from the arry in currentQuesion
+  question.innerText = currentQuestion.question;
 
-  //calls function that shows correct or incorrect
-  setStatusClass(document.body, correct);
-  Array.from(answerbtnsElement.children).forEach((button) => {
-    setStatusClass(button, button.dataset.correct);
+  choices.forEach((choice) => {
+    //check const choice (which is from id = choice) for the data type 'number' attribute
+    //which in the html is data-number and then takes the assigned info so "1", "2", etc
+    const number = choice.dataset['number'];
+
+    //then we need to grabe that number from the questions array for the related answer
+    //in the questions array the choices are labeled choice1, choice2, etc
+    //so need a 'choice'+number to pull this
+    choice.innerText = currentQuestion['choice' + number];
   });
 
-  if (shuffled.length > currentQuestion + 1) {
-    nextButton.classList.remove('hide');
-  } else {
-    endButton.classList.remove('hide');
-  }
+  //get rid of question we just answered so it won't be used again
+  availableQuestions.splice(questionIndex, 1);
 
-  nextButton.addEventListener('click', () => {
-    currentQuestion++;
-    setNextQuestion();
+  //allow user to answer now
+  acceptingAnwers = true;
+}
+
+choices.forEach((choice) => {
+  choice.addEventListener('click', (e) => {
+    //delay the answer selection before load
+    if (!acceptingAnwers) return;
+    acceptingAnwers = false;
+
+    const selectedChoice = e.target;
+    const selectAnswer = selectedChoice.dataset['number'];
+    getNewQuestion();
   });
-}
+});
 
-function setStatusClass(element, correct) {
-  clearStatusClass(element);
-  if (correct) {
-    element.classList.add('correct');
-  } else {
-    element.classList.add('wrong');
-  }
-}
-
-function clearStatusClass(element) {
-  element.classList.remove('correct');
-  element.classList.remove('wrong');
-}
-
-//function showQuestion(question) {
-//  questionElement.innerText = question.question;
-//
-//}
-
-const question = [
-  {
-    question: ['Hal open the pod bay door.'],
-    answers: [
-      { text: 'Im sorry Dave', correct: false },
-      { text: 'Im afraid', correct: false },
-      { text: 'I cant do that.', correct: false },
-      { text: 'All of the above', correct: true },
-    ],
-  },
-  {
-    question: ['What is true of Sea Urchins?'],
-    answers: [
-      { text: 'They wear things on their heads.', correct: true },
-      { text: 'They are afraid of things on their heads', correct: false },
-      { text: 'They wear things on their tiny bums.', correct: false },
-    ],
-  },
-];
 //need to add timer mechs in here (I think)
 //also needs a call to function for cycling through questions
 
