@@ -1,65 +1,88 @@
-var startButtonEl = $("#start-btn");
-var scoreButtonEl = $("#score-btn");
-var rulesButtonEl = $("#rules-btn");
-var rulesNumberEl = $("#rules-number");
-var refreshButtonEl = $("#refresh-btn");
+var startButtonEl = $('#start-btn');
+var scoreButtonEl = $('#score-btn');
+var rulesButtonEl = $('#rules-btn');
+var rulesNumberEl = $('#rules-number');
+var refreshButtonEl = $('#refresh-btn');
 //var questionsEl = = $("#question")
 
 var isDark = true; // light theme state
-const questionElement = document.getElementById("question");
-const answerbtnsElement = document.getElementById("answer-btns");
+
+const section = document.getElementById('container');
+const nextButton = document.getElementById('next-btn');
+const questionElement = document.getElementById('question');
+const questionCont = document.getElementById('question-container');
+const answerbtnsElement = document.getElementById('answer-btns');
 let shuffled, currentQuestion;
 
 // Click event causes quiz to start
 // Vanilla JS equivalent: `addEventListener`
-startButtonEl.on("click", function () {
-  alert("No Take Backsies!");
-  $("main").hide();
-  $("section").show();
+startButtonEl.on('click', function () {
+  alert('No Take Backsies!');
+  $('main').hide();
+  section.classList.remove('hide');
+  questionCont.classList.remove('hide');
 
   //makes questions random
-  shuffled = question.sort(() => Math.random() - 0.5); 
+  shuffled = question.sort(() => Math.random() - 0.5);
   currentQuestion = 0;
+
   //calls function next question to show the next question
   setNextQuestion();
 });
 
-
-//
 function setNextQuestion() {
+  //resets state and helps clear out "Answer" with the
+  //actual answers for the quiz
+  resetState();
+
   //populates questions into the question area
   showQuestion(shuffled[currentQuestion]);
-  question.answer.forEach(answer => {
-    const button = documaent.createElement('button')
-    button.innerText = answer.textbutton.classList.add('btn')
-    if (answer.correct) {
-      button.dataset.correct = answer.correct
-    }
-    button.addEventListener('click', selectAnswer)
-  }
 }
 
 function showQuestion(question) {
-  questionElement.innerText = question.question; 
-
+  questionElement.innerText = question.question;
+  question.answers.forEach((answer) => {
+    const button = document.createElement('button');
+    button.innerText = answer.text;
+    button.classList.add('btn');
+    if (answer.correct) {
+      button.dataset.correct = answer.correct;
+    }
+    button.addEventListener('click', selectAnswer);
+    answerbtnsElement.appendChild(button);
+  });
 }
+
+function resetState() {
+  nextButton.classList.add('hide');
+  while (answerbtnsElement.firstChild) {
+    answerbtnsElement.removeChild(answerbtnsElement.firstChild);
+  }
+}
+
+function selectAnswer() {}
+
+//function showQuestion(question) {
+//  questionElement.innerText = question.question;
+//
+//}
 
 const question = [
   {
-    question: ["Hal open the pod bay door."],
-    answer: [
-      { text: "Im sorry Dave", correct: false },
-      { text: "Im afraid", correct: false },
-      { text: "I cant do that.", correct: false },
-      { text: "All of the above", correct: true },
+    question: ['Hal open the pod bay door.'],
+    answers: [
+      { text: 'Im sorry Dave', correct: false },
+      { text: 'Im afraid', correct: false },
+      { text: 'I cant do that.', correct: false },
+      { text: 'All of the above', correct: true },
     ],
   },
   {
-    question: ["What is true of Sea Urchins?"],
-    answer: [
-      { text: "They wear things on their heads.", correct: true },
-      { text: "They are afraid of things on their heads", correct: false },
-      { text: "They wear things on their tiny bums.", correct: false },
+    question: ['What is true of Sea Urchins?'],
+    answers: [
+      { text: 'They wear things on their heads.', correct: true },
+      { text: 'They are afraid of things on their heads', correct: false },
+      { text: 'They wear things on their tiny bums.', correct: false },
     ],
   },
 ];
@@ -67,29 +90,27 @@ const question = [
 //also needs a call to function for cycling through questions
 
 // Click event causes a scoreboard of players to open
-scoreButtonEl.on("click", function () {
+scoreButtonEl.on('click', function () {
   if (isDark) {
-    $("body").css({ "background-color": "#d9e9e8", color: "#1a1a1a" });
+    $('body').css({ 'background-color': '#d9e9e8', color: '#1a1a1a' });
     isDark = !isDark;
-    $("#left").show();
+    $('#left').show();
   } else {
-    $("body").css({ "background-color": "#1a1a1a", color: "#d9e9e8" });
+    $('body').css({ 'background-color': '#1a1a1a', color: '#d9e9e8' });
     isDark = !isDark;
-    $("#left").hide();
+    $('#left').hide();
   }
 });
 
 // Click event causes a rules section to open
-rulesButtonEl.on("click", function () {
+rulesButtonEl.on('click', function () {
   var random = Math.floor(Math.random() * 100000000) + 10000000;
   console.log(random);
   rulesNumberEl.text(random);
-  $("#right").show();
+  $('#right').show();
 });
 
 // Click event causes refresh
-refreshButtonEl.on("click", function () {
+refreshButtonEl.on('click', function () {
   location.reload();
 });
-
-

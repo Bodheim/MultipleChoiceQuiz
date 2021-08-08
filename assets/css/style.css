@@ -5,11 +5,6 @@ section {
   width: 50ch;
 }
 
-section,
-aside {
-  display: none;
-}
-
 h1 {
   font-size: 4rem;
 }
@@ -42,3 +37,49 @@ p {
 .btn.btn-incorrect:active {
   background-color: #e64c66;
 }
+
+/*This whole section is just editing the quiz box*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.hide {
+  display: none;
+}
+
+.container {
+  width: 800px;
+  max-width: 80%;
+  background-color: rgb(113, 0, 136);
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px 2px;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+section.btn {
+  border: 1px solid;
+  padding: 5px 10px;
+  color: black;
+}
+
+/*
+need this only to happen once Begin is selected
+also come back to change hues for wrong/right answers
+.quiz
+  padding: 0;
+  margin: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+*/
