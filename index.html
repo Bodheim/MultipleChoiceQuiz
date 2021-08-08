@@ -15,7 +15,7 @@
       <hr />
       <p>Take the quiz?</p>
       <button id="start-btn" class="btn btn-info">BEGIN!</button>
-      <button id="next-btn" class="btn btn-info hide">BEGIN!</button>
+
       <hr />
 
       <p>Are you the #1?</p>
@@ -28,11 +28,10 @@
       <hr />
 
       <p>Need the rules first?</p>
-      <button id="rules-btn" class="btn btn-primary">
-        Tell me what to do!
-      </button>
-      <aside id="right">
-        <h3>Rules Here</h3>
+      <button id="rules-btn" class="btn btn-primary">Rules</button>
+      <aside id="right" class="hide">
+        <h3>Rules</h3>
+        <h4>Answer the questions as quickly as possible.</h4>
         <span id="rules-number"></span>
       </aside>
       <hr />
@@ -54,6 +53,8 @@
           <button calss="btn" type="radio">Answer 3</button>
           <button calss="btn" type="radio">Answer 4</button>
         </div>
+        <button id="next-btn" class="btn btn-info hide">Next!</button>
+        <button id="End-btn" class="btn btn-info hide">End!</button>
       </div>
     </section>
     <!-- Added link to the jQuery library -->

@@ -9,10 +9,12 @@ var isDark = true; // light theme state
 
 const section = document.getElementById('container');
 const nextButton = document.getElementById('next-btn');
+const endButton = document.getElementById('next-btn');
 const questionElement = document.getElementById('question');
 const questionCont = document.getElementById('question-container');
 const answerbtnsElement = document.getElementById('answer-btns');
 let shuffled, currentQuestion;
+const rules = document.getElementById('right');
 
 // Click event causes quiz to start
 // Vanilla JS equivalent: `addEventListener`
@@ -60,7 +62,41 @@ function resetState() {
   }
 }
 
-function selectAnswer() {}
+function selectAnswer(e) {
+  const selectedButton = e.target;
+  const correct = selectedButton.dataset.correct;
+
+  //calls function that shows correct or incorrect
+  setStatusClass(document.body, correct);
+  Array.from(answerbtnsElement.children).forEach((button) => {
+    setStatusClass(button, button.dataset.correct);
+  });
+
+  if (shuffled.length > currentQuestion + 1) {
+    nextButton.classList.remove('hide');
+  } else {
+    endButton.classList.remove('hide');
+  }
+
+  nextButton.addEventListener('click', () => {
+    currentQuestion++;
+    setNextQuestion();
+  });
+}
+
+function setStatusClass(element, correct) {
+  clearStatusClass(element);
+  if (correct) {
+    element.classList.add('correct');
+  } else {
+    element.classList.add('wrong');
+  }
+}
+
+function clearStatusClass(element) {
+  element.classList.remove('correct');
+  element.classList.remove('wrong');
+}
 
 //function showQuestion(question) {
 //  questionElement.innerText = question.question;
@@ -104,9 +140,7 @@ scoreButtonEl.on('click', function () {
 
 // Click event causes a rules section to open
 rulesButtonEl.on('click', function () {
-  var random = Math.floor(Math.random() * 100000000) + 10000000;
-  console.log(random);
-  rulesNumberEl.text(random);
+  rules.classList.remove('hide');
   $('#right').show();
 });
 
