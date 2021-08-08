@@ -68,6 +68,11 @@ function startQuiz() {
 }
 
 function getNewQuestion() {
+  if (availableQuestions.length === 0 || questionCounter >= maxQuestions) {
+    //for getting sent to page to end the game and show result
+    return window.location.assign('/end.html');
+  }
+
   questionCounter++;
 
   //makes a random number that wiill be used to pull the next question
@@ -102,7 +107,25 @@ choices.forEach((choice) => {
     acceptingAnwers = false;
 
     const selectedChoice = e.target;
-    const selectAnswer = selectedChoice.dataset['number'];
+    const selectedAnswer = selectedChoice.dataset['number'];
+
+    //applying class to start process of incorrect/correct colors and
+    //changing score count
+    const applyClass =
+      selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
+
+    //adding this incorrect/correct as a class element
+    selectedChoice.parentElement.classList.add(applyClass);
+
+    //give a second to show incorrect or correct colors before removing
+    setTimeout(() => {
+      //remove the class bc you just wanted it to be there long enough
+      //to show the color
+      selectedChoice.parentElement.classList.remove(applyClass);
+
+      //set timer
+    }, 500);
+
     getNewQuestion();
   });
 });

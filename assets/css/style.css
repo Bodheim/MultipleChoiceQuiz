@@ -38,7 +38,16 @@ p {
 .btn.btn-correct:active {
   background-color: #6fd47c;
 }
+
+.correct {
+  background-color: #6fd47c;
+}
+
 .btn.btn-incorrect:active {
+  background-color: #e64c66;
+}
+
+.incorrect {
   background-color: #e64c66;
 }
 
