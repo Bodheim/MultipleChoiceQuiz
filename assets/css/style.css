@@ -51,6 +51,16 @@ p {
   background-color: #e64c66;
 }
 
+/*HUD above quiz*/
+#hud {
+  display: flex;
+  justify-content: space-around;
+}
+
+.item-name {
+  text-align: center;
+}
+
 /*This whole section is just editing the quiz box*/
 *,
 *::before,
@@ -83,16 +93,3 @@ section.btn {
   padding: 5px 10px;
   color: black;
 }
-
-/*
-need this only to happen once Begin is selected
-also come back to change hues for wrong/right answers
-.quiz
-  padding: 0;
-  margin: 0;
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-*/

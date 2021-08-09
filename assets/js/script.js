@@ -2,13 +2,15 @@ var startButtonEl = $('#start-btn');
 var scoreButtonEl = $('#score-btn');
 var rulesButtonEl = $('#rules-btn');
 var rulesNumberEl = $('#rules-number');
-var refreshButtonEl = $('#refresh-btn');
+const rules = document.getElementById('right');
+const scoreboard = document.getElementById('left');
 const section = document.getElementById('container');
 
 var isDark = true; // light theme state
 
 const question = document.getElementById('question');
 const questionCont = document.getElementById('question-container');
+const endCont = document.getElementById('end-container');
 
 //makes an array for a space for each answer space
 const choices = Array.from(document.getElementsByClassName('choices'));
@@ -18,6 +20,12 @@ let acceptingAnwers = false; //set initially to fals so user can't answer before
 let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
+
+const timer = document.getElementById('timer');
+const scoreCount = document.getElementById('scorecount');
+
+//const timer = questionCounterText
+//const scoreCount = scoreText
 
 //sets a key for questions and answers and which are correct/incorrect
 let questions = [
@@ -70,10 +78,14 @@ function startQuiz() {
 function getNewQuestion() {
   if (availableQuestions.length === 0 || questionCounter >= maxQuestions) {
     //for getting sent to page to end the game and show result
-    return window.location.assign('/end.html');
+    questionCont.classList.add('hide');
+    endCont.classList.remove('hide');
   }
 
   questionCounter++;
+  //const timer = questionCounterText
+  //const scoreCount = scoreText
+  //insert timer here
 
   //makes a random number that wiill be used to pull the next question
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
@@ -114,6 +126,10 @@ choices.forEach((choice) => {
     const applyClass =
       selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
 
+    if (applyClass === 'correct') {
+      incrementScore(correctBonus);
+    }
+
     //adding this incorrect/correct as a class element
     selectedChoice.parentElement.classList.add(applyClass);
 
@@ -130,11 +146,18 @@ choices.forEach((choice) => {
   });
 });
 
-//need to add timer mechs in here (I think)
-//also needs a call to function for cycling through questions
+//Score counting
+incrementScore = (num) => {
+  score += num;
+  scoreCount.innerText = score;
+};
+
+//end quiz and save score here
+saveScore(event);
 
 // Click event causes a scoreboard of players to open
 scoreButtonEl.on('click', function () {
+  scoreboard.classList.remove('hide');
   if (isDark) {
     $('body').css({ 'background-color': '#d9e9e8', color: '#1a1a1a' });
     isDark = !isDark;
@@ -149,10 +172,11 @@ scoreButtonEl.on('click', function () {
 // Click event causes a rules section to open
 rulesButtonEl.on('click', function () {
   rules.classList.remove('hide');
-  $('#right').show();
-});
-
-// Click event causes refresh
-refreshButtonEl.on('click', function () {
-  location.reload();
+  if (isDark) {
+    isDark = !isDark;
+    $('#right').show();
+  } else {
+    isDark = !isDark;
+    $('#right').hide();
+  }
 });

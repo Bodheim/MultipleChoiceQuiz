@@ -22,8 +22,8 @@
       <button id="score-btn" class="btn btn-info">
         I'm the #1! I'm sure of it!
       </button>
-      <aside id="left">
-        <h3>Scorboard here</h3>
+      <aside id="left" class="hide">
+        <h3>Check the scores.</h3>
       </aside>
       <hr />
 
@@ -35,16 +35,20 @@
         <span id="rules-number"></span>
       </aside>
       <hr />
-
-      <p>Click to refresh page</p>
-      <button id="refresh-btn" class="btn btn-warning">Refresh Page</button>
     </main>
 
     <section class="container hide" id="container">
-      <h2>Timer & score goes here</h2>
-      <div class="timer"></div>
-      <div class="time_text">Time Left</div>
-      <div class="timer_sec">15</div>
+      <div id="hud">
+        <div id="hud-item">
+          <p class="item-name">Timer</p>
+          <h3 class="item-value" id="timer">seconds</h3>
+        </div>
+        <div id="hud-item">
+          <p class="item-name">Score</p>
+          <h3 class="item-value" id="scorecount">count</h3>
+        </div>
+      </div>
+
       <div id="question-container" class="hide">
         <h2 id="question">Question</h2>
         <div class="choice-container">
@@ -59,9 +63,27 @@
         <div class="choice-container">
           <p class="choices" data-number="4">Answer 4</p>
         </div>
+      </div>
 
-        <button id="next-btn" class="btn btn-info hide">Next!</button>
-        <button id="End-btn" class="btn btn-info hide">End!</button>
+      <div id="end-container" class="hide">
+        <h2>You completed the quiz!</h2>
+        <h3 id="finalScore">Final</h3>
+        <form>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="username"
+          />
+          <button
+            type="submit"
+            class="btn btn-info"
+            id="save-btn"
+            onclick="saveScore(event)"
+          >
+            Save!
+          </button>
+        </form>
       </div>
     </section>
     <!-- Added link to the jQuery library -->
