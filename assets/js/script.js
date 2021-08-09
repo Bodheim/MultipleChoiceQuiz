@@ -80,6 +80,8 @@ function getNewQuestion() {
     //for getting sent to page to end the game and show result
     questionCont.classList.add('hide');
     endCont.classList.remove('hide');
+
+    localStorage.setItem('mostRecentScore', score);
   }
 
   questionCounter++;
@@ -92,7 +94,7 @@ function getNewQuestion() {
   currentQuestion = availableQuestions[questionIndex];
 
   //.questions pulls the question from the arry in currentQuesion
-  question.innerText = currentQuestion.question;
+  question.innerText = currentQuestion.questions;
 
   choices.forEach((choice) => {
     //check const choice (which is from id = choice) for the data type 'number' attribute
@@ -152,8 +154,25 @@ incrementScore = (num) => {
   scoreCount.innerText = score;
 };
 
+const username = document.getElementById('username');
+const saveBtn = document.getElementById('save-btn');
+const finalScore = document.getElementById('finalScore');
+const mostRecentScore = localStorage.getItem('mostRecentScore');
+finalScore.innerText = mostRecentScore;
+
+username.addEventListener('keyup', () => {
+  console.log(username.value);
+  if (username.value) {
+    //shows save button after a value in username is entered
+    saveBtn.classList.remove('hide');
+  }
+});
+
 //end quiz and save score here
-saveScore(event);
+saveScore = (e) => {
+  console.log('click the save Button!');
+  e.preventDefault();
+};
 
 // Click event causes a scoreboard of players to open
 scoreButtonEl.on('click', function () {

@@ -67,7 +67,7 @@
 
       <div id="end-container" class="hide">
         <h2>You completed the quiz!</h2>
-        <h3 id="finalScore">Final</h3>
+        <h3 id="finalScore"></h3>
         <form>
           <input
             type="text"
@@ -77,13 +77,15 @@
           />
           <button
             type="submit"
-            class="btn btn-info"
+            disabled
+            class="btn btn-info hide"
             id="save-btn"
             onclick="saveScore(event)"
           >
             Save!
           </button>
         </form>
+        <a class="btn-info" href="/index.html">Play Again or see scores?</a>
       </div>
     </section>
     <!-- Added link to the jQuery library -->
